@@ -1,246 +1,151 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/b88efe89-80c5-4a3c-8226-e4fd96f703f4/files/4f4f85fb-7d0b-4a98-8ac4-8fcc3277133e.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/b88efe89-80c5-4a3c-8226-e4fd96f703f4/files/4f4f85fb-7d0b-4a98-8ac4-8fcc3277133e.jpg";
+
+const SOCIAL = [
+  { label: "ВКонтакте", text: "ВК", href: "#", bg: "#0077FF" },
+  { label: "Instagram", text: "IG", href: "#", bg: "#E1306C" },
+  { label: "Telegram", text: "TG", href: "#", bg: "#0088CC" },
+  { label: "WhatsApp", text: "WA", href: "#", bg: "#25D366" },
+  { label: "Одноклассники", text: "ОК", href: "#", bg: "#EE8208" },
+  { label: "МАХ", text: "МАХ", href: "#", bg: "#1A1A2E" },
+];
 
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    parentName: "",
-    childName: "",
-    age: "",
-    phone: "",
-    email: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ parentName: "", childName: "", age: "", phone: "", email: "" });
+  const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
-  const navLinks = [
-    { href: "#about", label: "О методике" },
+  const nav = [
+    { href: "#about", label: "О студии" },
+    { href: "#method", label: "Методика" },
+    { href: "#groups", label: "Группы" },
     { href: "#programs", label: "Программы" },
     { href: "#schedule", label: "Расписание" },
-    { href: "#trial", label: "Пробное занятие" },
     { href: "#contacts", label: "Контакты" },
   ];
 
   return (
-    <div style={{ backgroundColor: "var(--cream)" }}>
+    <div style={{ backgroundColor: "var(--milk)", fontFamily: "'Manrope', sans-serif" }}>
 
-      {/* HEADER */}
-      <header
-        style={{
-          backgroundColor: "rgba(251,248,243,0.95)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid var(--beige-dark)",
-          position: "sticky",
-          top: 0,
-          zIndex: 100,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1160,
-            margin: "0 auto",
-            padding: "0 24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: 68,
-          }}
-        >
-          <a href="#" style={{ textDecoration: "none" }}>
-            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
-              <span
-                className="font-display"
-                style={{ fontSize: 22, fontWeight: 600, color: "var(--terracotta)", fontStyle: "italic" }}
-              >
-                Студия
-              </span>
-              <span style={{ fontSize: 11, color: "var(--warm-brown)", opacity: 0.6, fontWeight: 500, letterSpacing: "0.05em" }}>
-                ТВОРЧЕСКОЕ РАЗВИТИЕ
-              </span>
-            </div>
+      {/* ────── HEADER ────── */}
+      <header style={{
+        position: "sticky", top: 0, zIndex: 100,
+        backgroundColor: "rgba(246,241,235,0.92)",
+        backdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(200,200,184,0.4)",
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 28px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+
+          {/* Logo */}
+          <a href="#" style={{ textDecoration: "none", display: "flex", flexDirection: "column", lineHeight: 1 }}>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 500, color: "var(--terracotta)", letterSpacing: "0.04em", fontStyle: "italic" }}>
+              Искра
+            </span>
+            <span style={{ fontSize: 10, color: "var(--warm-mid)", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>
+              студия развития
+            </span>
           </a>
 
-          <nav
-            style={{ display: "flex", gap: 28, alignItems: "center" }}
-            className="hidden md:flex"
-          >
-            {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="nav-link">
-                {l.label}
-              </a>
-            ))}
+          {/* Desktop nav */}
+          <nav className="hidden md:flex" style={{ gap: 28, display: "flex", alignItems: "center" }}>
+            {nav.map(l => <a key={l.href} href={l.href} className="nav-link-iskra">{l.label}</a>)}
           </nav>
 
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div className="hidden md:flex" style={{ display: "flex", gap: 8 }}>
-              {[
-                { label: "ВКонтакте", content: "ВК", isText: true, bg: "#0077FF" },
-                { label: "Instagram", content: "📷", isText: false, bg: "#E1306C" },
-                { label: "Маx", content: "МАХ", isText: true, bg: "#1A1A2E" },
-                { label: "Одноклассники", content: "ОК", isText: true, bg: "#EE8208" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href="#"
-                  title={s.label}
-                  style={{
-                    width: 34, height: 34, borderRadius: "50%",
-                    background: s.bg, display: "flex",
-                    alignItems: "center", justifyContent: "center",
-                    fontSize: s.isText ? 10 : 15, textDecoration: "none",
-                    color: "white", fontWeight: 800, letterSpacing: "0.01em",
-                    transition: "transform 0.2s",
-                  }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.12)")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-                >
-                  {s.content}
-                </a>
+          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            {/* Socials in header */}
+            <div className="hidden md:flex" style={{ display: "flex", gap: 6 }}>
+              {SOCIAL.slice(0, 4).map(s => (
+                <a key={s.label} href={s.href} title={s.label}
+                  style={{ width: 32, height: 32, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, color: "white", textDecoration: "none", letterSpacing: "0.02em", transition: "transform 0.2s" }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = "scale(1.15)"}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = "scale(1)"}
+                >{s.text}</a>
               ))}
             </div>
 
-            <a href="#trial" className="btn-primary hidden md:inline-block" style={{ padding: "10px 24px", fontSize: 14 }}>
+            <a href="#trial" className="btn-iskra hidden md:inline-block" style={{ padding: "10px 24px", fontSize: 13 }}>
               Записаться
             </a>
 
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden"
-              style={{
-                background: "none", border: "none", cursor: "pointer",
-                padding: 6, color: "var(--warm-brown)",
-              }}
-            >
-              <Icon name={menuOpen ? "X" : "Menu"} size={26} />
+            <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden"
+              style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "var(--warm-dark)" }}>
+              <Icon name={menuOpen ? "X" : "Menu"} size={24} />
             </button>
           </div>
         </div>
 
         {menuOpen && (
-          <div
-            style={{
-              backgroundColor: "var(--cream)",
-              borderTop: "1px solid var(--beige-dark)",
-              padding: "16px 24px 24px",
-            }}
-          >
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  display: "block",
-                  padding: "12px 0",
-                  color: "var(--warm-brown)",
-                  textDecoration: "none",
-                  fontWeight: 500,
-                  borderBottom: "1px solid var(--beige-dark)",
-                  fontSize: 16,
-                }}
-              >
+          <div style={{ backgroundColor: "var(--milk)", borderTop: "1px solid rgba(200,200,184,0.4)", padding: "16px 28px 24px" }}>
+            {nav.map(l => (
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
+                style={{ display: "block", padding: "13px 0", color: "var(--warm-dark)", textDecoration: "none", fontWeight: 500, borderBottom: "1px solid #EDE8DF", fontSize: 16 }}>
                 {l.label}
               </a>
             ))}
-            <a
-              href="#trial"
-              className="btn-primary"
-              style={{ marginTop: 20, display: "block", textAlign: "center" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Записаться бесплатно
+            <a href="#trial" className="btn-iskra" style={{ marginTop: 20, display: "block", textAlign: "center" }} onClick={() => setMenuOpen(false)}>
+              Записаться на пробное
             </a>
           </div>
         )}
       </header>
 
-      {/* HERO */}
-      <section
-        style={{
-          minHeight: "92vh",
-          display: "flex",
-          alignItems: "center",
-          position: "relative",
-          overflow: "hidden",
-          padding: "60px 24px",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage: `url(${HERO_IMAGE})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center 30%",
-            filter: "brightness(0.38)",
-            zIndex: 0,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(135deg, rgba(61,43,31,0.7) 0%, rgba(196,98,58,0.4) 100%)",
-            zIndex: 1,
-          }}
-        />
+      {/* ────── HERO ────── */}
+      <section style={{ minHeight: "95vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden" }}>
+        {/* Background */}
+        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${HERO_IMG})`, backgroundSize: "cover", backgroundPosition: "center 20%", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, rgba(43,43,40,0.78) 0%, rgba(85,99,87,0.5) 55%, rgba(43,43,40,0.25) 100%)", zIndex: 1 }} />
 
-        <div style={{ maxWidth: 1160, margin: "0 auto", position: "relative", zIndex: 2, width: "100%" }}>
+        {/* Decorative organic shape */}
+        <div style={{
+          position: "absolute", right: "-8%", top: "10%",
+          width: "45vw", height: "80vh",
+          background: "rgba(201,120,87,0.12)",
+          borderRadius: "60% 40% 55% 45% / 50% 60% 40% 50%",
+          zIndex: 1,
+        }} />
+
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 28px", position: "relative", zIndex: 2, width: "100%" }}>
           <div style={{ maxWidth: 680 }}>
-            <div className="tag" style={{ background: "rgba(255,255,255,0.15)", color: "white", marginBottom: 24 }}>
-              пгт Бачатский • для детей 6–12 лет
+            {/* Eyebrow */}
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
+              <span style={{ color: "var(--sand)", fontSize: 20 }}>✦</span>
+              <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 13, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                пгт Бачатский · дети 7–16 лет
+              </span>
             </div>
-            <h1
-              className="font-display"
-              style={{
-                fontSize: "clamp(2.4rem, 6vw, 4rem)",
-                fontWeight: 600,
-                color: "white",
-                lineHeight: 1.15,
-                marginBottom: 24,
-              }}
-            >
-              Студия творческого развития для детей
+
+            <h1 className="heading-xl" style={{ color: "white", marginBottom: 12 }}>
+              Театр для жизни,
             </h1>
-            <p
-              style={{
-                fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
-                color: "rgba(255,255,255,0.88)",
-                lineHeight: 1.65,
-                marginBottom: 40,
-                maxWidth: 560,
-              }}
-            >
-              Помогаем стать увереннее, говорить свободно и мыслить смело — через актёрские техники и современные знания
+            <h1 className="heading-xl" style={{ color: "var(--sand)", marginBottom: 32, fontStyle: "italic" }}>
+              а не для сцены.
+            </h1>
+
+            <p style={{ fontSize: 17, color: "rgba(255,255,255,0.82)", lineHeight: 1.7, marginBottom: 48, maxWidth: 520, fontWeight: 300 }}>
+              Развиваем уверенность, речь и самовыражение через театральные практики. Первое пробное занятие — бесплатно.
             </p>
-            <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-              <a href="#trial" className="btn-primary" style={{ fontSize: 17, padding: "16px 40px" }}>
-                Пробное занятие — бесплатно
+
+            <div style={{ display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center" }}>
+              <a href="#trial" className="btn-iskra" style={{ fontSize: 16, padding: "18px 44px" }}>
+                Записаться на пробное
               </a>
-              <a
-                href="#about"
-                className="btn-outline"
-                style={{ color: "white", borderColor: "rgba(255,255,255,0.6)", fontSize: 15 }}
-              >
-                Узнать больше
+              <a href="#about" className="btn-iskra-ghost">
+                О студии
               </a>
             </div>
 
-            <div style={{ display: "flex", gap: 40, marginTop: 56, flexWrap: "wrap" }}>
+            {/* Stats */}
+            <div style={{ display: "flex", gap: 48, marginTop: 64, flexWrap: "wrap" }}>
               {[
-                { value: "7–16", label: "лет возраст" },
-                { value: "8", label: "занятий в месяц" },
-                { value: "0 ₽", label: "первое занятие" },
-              ].map((f) => (
-                <div key={f.value} style={{ color: "white" }}>
-                  <div className="font-display" style={{ fontSize: 36, fontWeight: 600, lineHeight: 1 }}>{f.value}</div>
-                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", marginTop: 4 }}>{f.label}</div>
+                { val: "7–16", sub: "лет" },
+                { val: "3", sub: "возрастные группы" },
+                { val: "0 ₽", sub: "пробное занятие" },
+              ].map(s => (
+                <div key={s.val}>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 40, fontWeight: 500, color: "white", lineHeight: 1 }}>{s.val}</div>
+                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", marginTop: 6, letterSpacing: "0.05em", textTransform: "uppercase", fontWeight: 600 }}>{s.sub}</div>
                 </div>
               ))}
             </div>
@@ -248,257 +153,197 @@ export default function Index() {
         </div>
       </section>
 
-      {/* WHY US */}
-      <section style={{ background: "white", padding: "80px 24px" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Почему выбирают нас</div>
-            <h2 className="section-title">Мы не просто занимаемся театром</h2>
-            <p style={{ color: "var(--muted-foreground)", marginTop: 16, maxWidth: 560, margin: "16px auto 0" }}>
-              Театральная методика — это инструмент, который меняет ребёнка изнутри
-            </p>
-          </div>
+      {/* ────── ABOUT ────── */}
+      <section id="about" style={{ padding: "100px 28px", backgroundColor: "var(--milk)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 80, alignItems: "center" }}>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
-            {[
-              {
-                icon: "Heart",
-                title: "Снимаем зажимы",
-                desc: "Убираем телесные блоки и страх выступлений через мягкие упражнения и игры",
-                color: "#FEE2E2",
-                iconColor: "#DC2626",
-              },
-              {
-                icon: "MessageCircle",
-                title: "Развиваем речь",
-                desc: "Работаем с голосом, дикцией и умением выражать мысли ясно и красиво",
-                color: "#FEF3C7",
-                iconColor: "#D97706",
-              },
-              {
-                icon: "Smile",
-                title: "Эмоциональный интеллект",
-                desc: "Учим понимать свои и чужие эмоции — это база для общения и дружбы",
-                color: "#DCFCE7",
-                iconColor: "#16A34A",
-              },
-              {
-                icon: "Users",
-                title: "Маленькие группы",
-                desc: "Бережный подход и внимание к каждому ребёнку — не потоковое обучение",
-                color: "#EDE9FE",
-                iconColor: "#7C3AED",
-              },
-            ].map((item) => (
-              <div key={item.title} className="card-studio">
-                <div
-                  style={{
-                    width: 52, height: 52, borderRadius: 16,
-                    background: item.color, display: "flex",
-                    alignItems: "center", justifyContent: "center",
-                    marginBottom: 18,
-                  }}
-                >
-                  <Icon name={item.icon} size={26} style={{ color: item.iconColor }} />
-                </div>
-                <h3 style={{ fontWeight: 600, fontSize: 17, marginBottom: 10, color: "var(--warm-brown)" }}>
-                  {item.title}
-                </h3>
-                <p style={{ color: "var(--muted-foreground)", lineHeight: 1.6, fontSize: 15 }}>
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT METHODOLOGY */}
-      <section id="about" style={{ padding: "80px 24px", backgroundColor: "var(--beige)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: 60,
-              alignItems: "center",
-            }}
-          >
             <div>
-              <div className="tag" style={{ marginBottom: 20 }}>О методике</div>
-              <h2 className="section-title" style={{ marginBottom: 24 }}>
-                Почему театр — это не про сцену
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
+                <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+                <span className="chip">О студии</span>
+              </div>
+              <h2 className="heading-lg" style={{ marginBottom: 28, color: "var(--warm-dark)" }}>
+                Искра — это не<br/>театральный кружок
               </h2>
-              <p style={{ color: "var(--warm-brown)", lineHeight: 1.75, marginBottom: 20, fontSize: 16, opacity: 0.85 }}>
-                Большинство думают, что театральная студия — это подготовка к спектаклям. На самом деле
-                это тренажёр для жизни: через игру ребёнок учится управлять телом, голосом и эмоциями.
+              <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--warm-mid)", marginBottom: 20, fontWeight: 300 }}>
+                Мы — современная студия развития личности ребёнка через театральные практики. Наша главная цель — не подготовить артистов, а воспитать уверенных, свободных и думающих людей.
               </p>
-              <p style={{ color: "var(--warm-brown)", lineHeight: 1.75, marginBottom: 32, fontSize: 16, opacity: 0.85 }}>
-                Дети после курса увереннее отвечают у доски, легче знакомятся, умеют слушать и быть услышанными.
+              <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--warm-mid)", marginBottom: 40, fontWeight: 300 }}>
+                Театральные инструменты помогают развить навыки, которые пригодятся в любой сфере жизни — от разговора с учителем до публичного выступления.
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 {[
-                  "Импровизация и творческое мышление",
-                  "Работа с голосом и дикцией",
-                  "Эмоциональный интеллект",
-                  "Командная работа и лидерство",
-                  "Уверенность и публичные выступления",
-                ].map((item) => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <div
-                      style={{
-                        width: 24, height: 24, borderRadius: "50%",
-                        background: "var(--terracotta)", display: "flex",
-                        alignItems: "center", justifyContent: "center", flexShrink: 0,
-                      }}
-                    >
-                      <Icon name="Check" size={14} style={{ color: "white" }} />
-                    </div>
-                    <span style={{ fontSize: 15, color: "var(--warm-brown)" }}>{item}</span>
+                  { icon: "ShieldCheck", label: "Уверенность в себе" },
+                  { icon: "MessageCircle", label: "Чёткая речь" },
+                  { icon: "Star", label: "Навык выступлений" },
+                  { icon: "Heart", label: "Эмоц. интеллект" },
+                  { icon: "Users", label: "Работа в команде" },
+                  { icon: "Sparkles", label: "Самовыражение" },
+                ].map(item => (
+                  <div key={item.label} style={{ display: "flex", gap: 10, alignItems: "center", padding: "10px 14px", background: "white", borderRadius: 14, boxShadow: "0 2px 12px rgba(43,43,40,0.05)" }}>
+                    <Icon name={item.icon} size={16} style={{ color: "var(--terracotta)", flexShrink: 0 }} />
+                    <span style={{ fontSize: 13, fontWeight: 500, color: "var(--warm-dark)" }}>{item.label}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  borderRadius: 32,
-                  overflow: "hidden",
-                  boxShadow: "0 20px 60px rgba(61,43,31,0.2)",
-                  aspectRatio: "4/5",
-                }}
-              >
-                <img
-                  src={HERO_IMAGE}
-                  alt="Дети на занятии в студии"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
+              <div style={{ borderRadius: 40, overflow: "hidden", aspectRatio: "3/4", boxShadow: "0 32px 80px rgba(43,43,40,0.15)" }}>
+                <img src={HERO_IMG} alt="Занятие в студии Искра" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
-              <div
-                style={{
-                  position: "absolute", bottom: 32, left: -20,
-                  background: "white", borderRadius: 20,
-                  padding: "16px 24px",
-                  boxShadow: "0 8px 32px rgba(61,43,31,0.15)",
-                }}
-              >
-                <div className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "var(--terracotta)" }}>Авторская</div>
-                <div style={{ fontSize: 13, color: "var(--warm-brown)", opacity: 0.7 }}>методика студии</div>
+              {/* Floating quote */}
+              <div style={{
+                position: "absolute", bottom: 40, left: -28,
+                background: "var(--olive)", color: "white",
+                borderRadius: 24, padding: "20px 28px",
+                maxWidth: 240, boxShadow: "0 12px 40px rgba(85,99,87,0.3)",
+              }}>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 500, lineHeight: 1.4, fontStyle: "italic" }}>
+                  «Учим быть собой»
+                </div>
+                <div style={{ marginTop: 8, fontSize: 12, opacity: 0.7, fontWeight: 500 }}>Философия студии Искра</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* AGE GROUPS */}
-      <section style={{ padding: "80px 24px", background: "white" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Возрастные группы</div>
-            <h2 className="section-title">Свой подход для каждого возраста</h2>
-            <p style={{ color: "var(--muted-foreground)", marginTop: 16, maxWidth: 580, margin: "16px auto 0" }}>
-              Студия работает с детьми от 7 до 16 лет — три группы с разными программами и темпом
+      {/* ────── METHOD ────── */}
+      <section id="method" style={{ padding: "100px 28px", backgroundColor: "#EDE8DF" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip chip-olive">Авторская методика</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)", marginBottom: 20 }}>
+              Не играем в театр.<br/>
+              <span style={{ color: "var(--terracotta)", fontStyle: "italic" }}>Используем театр для жизни.</span>
+            </h2>
+            <p style={{ fontSize: 16, color: "var(--warm-mid)", maxWidth: 560, margin: "0 auto", lineHeight: 1.75, fontWeight: 300 }}>
+              Каждое занятие — это тренажёр навыков, которые нужны в реальной жизни: уверенность, речь, способность слышать и быть услышанным.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
+          {/* Formula */}
+          <div style={{
+            background: "var(--olive-dark)",
+            borderRadius: 32,
+            padding: "40px 48px",
+            textAlign: "center",
+            marginBottom: 48,
+            color: "white",
+          }}>
+            <div style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.6, marginBottom: 16, fontWeight: 600 }}>Наша формула</div>
+            <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.3rem, 3vw, 2rem)", fontWeight: 500 }}>
+              Театр + Практика + Поддержка = <span style={{ color: "var(--sand)" }}>Уверенность на всю жизнь</span>
+            </div>
+            <div style={{ marginTop: 16, fontSize: 14, opacity: 0.6 }}>Без давления. Без соревнования. В атмосфере принятия и вдохновения.</div>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {[
+              { emoji: "🎭", title: "Раскрепощение", desc: "Специальные упражнения убирают телесные зажимы и страх «быть на виду». Ребёнок учится занимать пространство свободно." },
+              { emoji: "🗣️", title: "Голос и речь", desc: "Дикция, темп, интонация, паузы. Ребёнок начинает говорить так, чтобы его слышали и слушали." },
+              { emoji: "🤝", title: "Взаимодействие", desc: "Этюды и импровизации в парах и группах — учим слышать партнёра, договариваться и поддерживать." },
+              { emoji: "✨", title: "Самовыражение", desc: "Пространство, где можно проявляться без осуждения. Здесь нет «правильно» и «неправильно» — есть «своё»." },
+            ].map(c => (
+              <div key={c.title} className="card-iskra" style={{ boxShadow: "none", border: "1px solid rgba(200,200,184,0.5)" }}>
+                <div style={{ fontSize: 40, marginBottom: 20 }}>{c.emoji}</div>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 500, marginBottom: 12, color: "var(--warm-dark)" }}>{c.title}</h3>
+                <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--warm-mid)", fontWeight: 300 }}>{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ────── AGE GROUPS ────── */}
+      <section id="groups" style={{ padding: "100px 28px", backgroundColor: "var(--milk)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip">Возрастные группы</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)" }}>
+              Свой подход для каждого возраста
+            </h2>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 24 }}>
             {[
               {
-                age: "7–10 лет",
-                emoji: "🌱",
-                title: "Искорки",
-                subtitle: "Младшая группа",
-                desc: "Игровой формат: упражнения на раскрепощение, ритм, фантазию. Учимся выражать эмоции и не бояться быть на виду. Всё через сказку, движение и смех.",
-                skills: ["Снятие зажимов через игру", "Первые выступления", "Развитие воображения"],
-                bg: "#FEF3C7",
-                accent: "#D97706",
-                border: "#FCD34D",
+                range: "7–9 лет",
+                name: "Искорки",
+                bg: "#FBF3E4",
+                accent: "var(--sand)",
+                accentDark: "#A87830",
+                icon: "🌱",
+                tagStyle: "chip-sand",
+                desc: "Игровой формат. Упражнения на раскрепощение, ритм, фантазию. Учимся выражать эмоции и не бояться быть на виду. Всё через сказку, движение и смех.",
+                skills: ["Снятие зажимов через игру", "Первые выступления", "Развитие воображения", "Командная игра"],
               },
               {
-                age: "11–13 лет",
-                emoji: "🔥",
-                title: "Огонь",
-                subtitle: "Средняя группа",
+                range: "10–12 лет",
+                name: "Огонь",
+                bg: "var(--olive)",
                 accent: "white",
-                desc: "Работа с голосом, дикцией и сценическим образом. Этюды, импровизации, командные постановки. Подростки учатся говорить уверенно и слышать других.",
-                skills: ["Голос и дикция", "Сценический образ", "Командные этюды"],
-                bg: "linear-gradient(145deg, var(--terracotta) 0%, var(--terracotta-dark) 100%)",
-                accentColor: "rgba(255,255,255,0.85)",
-                isLight: false,
+                accentDark: "rgba(255,255,255,0.7)",
+                icon: "🔥",
+                tagStyle: "",
+                desc: "Работа с голосом и сценическим образом. Этюды, импровизации, командные постановки. Учимся говорить уверенно и слышать других.",
+                skills: ["Голос и дикция", "Сценический образ", "Командные этюды", "Публичность"],
+                isInverse: true,
               },
               {
-                age: "14–16 лет",
-                emoji: "⭐",
-                title: "Звёзды",
-                subtitle: "Старшая группа",
-                desc: "Серьёзная работа: публичные выступления, дебаты, управление аудиторией. Навыки, которые помогут на собеседовании, в университете и в жизни.",
-                skills: ["Публичные выступления", "Управление аудиторией", "Лидерство и харизма"],
-                bg: "#F0FDF4",
-                accent: "#15803D",
-                border: "#86EFAC",
+                range: "13–16 лет",
+                name: "Звёзды",
+                bg: "#F0EDE8",
+                accent: "var(--terracotta)",
+                accentDark: "var(--warm-mid)",
+                icon: "⭐",
+                tagStyle: "chip-terra",
+                desc: "Серьёзная работа: публичные выступления, управление вниманием аудитории, лидерство. Навыки, которые помогут в университете и карьере.",
+                skills: ["Публичные выступления", "Управление аудиторией", "Лидерство и харизма", "Аргументация"],
               },
-            ].map((g) => (
-              <div
-                key={g.age}
-                className="card-studio"
-                style={{
-                  background: g.bg,
-                  color: g.isLight === false ? "white" : "var(--warm-brown)",
-                  position: "relative",
-                  overflow: "hidden",
-                  border: g.border ? `2px solid ${g.border}` : undefined,
-                }}
+            ].map(g => (
+              <div key={g.range} style={{
+                background: g.bg,
+                borderRadius: 36,
+                padding: "40px 36px",
+                position: "relative",
+                overflow: "hidden",
+                transition: "transform 0.35s ease, box-shadow 0.35s ease",
+              }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-6px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(43,43,40,0.1)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
               >
-                {g.isLight === false && (
-                  <div style={{
-                    position: "absolute", top: -30, right: -30,
-                    width: 140, height: 140, borderRadius: "50%",
-                    background: "rgba(255,255,255,0.07)",
-                  }} />
+                {g.isInverse && (
+                  <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
                 )}
-                <div style={{ fontSize: 40, marginBottom: 16 }}>{g.emoji}</div>
-                <div
-                  className="tag"
-                  style={{
-                    background: g.isLight === false ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.07)",
-                    color: g.isLight === false ? "white" : g.accent,
-                    marginBottom: 12,
-                  }}
-                >
-                  {g.age}
-                </div>
-                <h3
-                  className="font-display"
-                  style={{ fontSize: 26, fontWeight: 600, marginBottom: 4 }}
-                >
-                  {g.title}
+                <div style={{ fontSize: 44, marginBottom: 20 }}>{g.icon}</div>
+                <span className={`chip ${g.tagStyle}`} style={g.isInverse ? { background: "rgba(255,255,255,0.18)", color: "white" } : {}}>{g.range}</span>
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 500, margin: "16px 0 8px", color: g.isInverse ? "white" : "var(--warm-dark)" }}>
+                  {g.name}
                 </h3>
-                <div
-                  style={{
-                    fontSize: 13, marginBottom: 16,
-                    opacity: g.isLight === false ? 0.7 : 0.55,
-                    fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em",
-                  }}
-                >
-                  {g.subtitle}
-                </div>
-                <p style={{ fontSize: 14, lineHeight: 1.65, marginBottom: 24, opacity: g.isLight === false ? 0.9 : 0.8 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.7, color: g.isInverse ? "rgba(255,255,255,0.75)" : "var(--warm-mid)", marginBottom: 28, fontWeight: 300 }}>
                   {g.desc}
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {g.skills.map((s) => (
-                    <div key={s} style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                      <div
-                        style={{
-                          width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
-                          background: g.isLight === false ? "rgba(255,255,255,0.25)" : g.accent,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}
-                      >
-                        <Icon name="Check" size={11} style={{ color: g.isLight === false ? "white" : "white" }} />
+                  {g.skills.map(s => (
+                    <div key={s} style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <div style={{
+                        width: 20, height: 20, borderRadius: "50%", flexShrink: 0,
+                        background: g.isInverse ? "rgba(255,255,255,0.2)" : g.accent,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                      }}>
+                        <Icon name="Check" size={11} style={{ color: g.isInverse ? "white" : (g.accent === "var(--sand)" ? "var(--warm-dark)" : "white") }} />
                       </div>
-                      <span style={{ fontSize: 13, opacity: g.isLight === false ? 0.9 : 0.8 }}>{s}</span>
+                      <span style={{ fontSize: 13, color: g.isInverse ? "rgba(255,255,255,0.85)" : "var(--warm-dark)", fontWeight: 500 }}>{s}</span>
                     </div>
                   ))}
                 </div>
@@ -508,442 +353,263 @@ export default function Index() {
         </div>
       </section>
 
-      {/* PROGRAMS */}
-      <section id="programs" style={{ padding: "80px 24px", background: "var(--cream)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Программы и цены</div>
-            <h2 className="section-title">Выберите направление</h2>
+      {/* ────── PROGRAMS ────── */}
+      <section id="programs" style={{ padding: "100px 28px", backgroundColor: "#EDE8DF" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip">Программы и цены</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)" }}>Выберите направление</h2>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
 
-            {/* Main studio */}
-            <div
-              className="card-studio"
-              style={{
-                background: "linear-gradient(145deg, var(--terracotta) 0%, var(--terracotta-dark) 100%)",
-                color: "white",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute", top: -40, right: -40,
-                  width: 160, height: 160, borderRadius: "50%",
-                  background: "rgba(255,255,255,0.08)",
-                }}
-              />
-              <div className="tag" style={{ background: "rgba(255,255,255,0.2)", color: "white", marginBottom: 20 }}>
-                🌟 Основной курс
-              </div>
-              <h3 className="font-display" style={{ fontSize: 24, fontWeight: 600, marginBottom: 8 }}>
-                Творческая студия
-              </h3>
-              <p style={{ fontSize: 14, opacity: 0.8, marginBottom: 8 }}>Театральная методика • 7–12 лет</p>
-              <div style={{ fontSize: 36, fontWeight: 700, marginBottom: 4 }}>4 000 ₽</div>
-              <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 28 }}>в месяц • 8 занятий</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
-                {[
-                  "Раскрепощение и уверенность",
-                  "Работа с голосом и ритмом",
-                  "Импровизация и этюды",
-                  "Выступление на публике",
-                ].map((f) => (
-                  <div key={f} style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <span style={{ fontSize: 14 }}>✓</span>
-                    <span style={{ fontSize: 14, opacity: 0.9 }}>{f}</span>
-                  </div>
-                ))}
-              </div>
-              <a
-                href="#trial"
-                style={{
-                  display: "block", textAlign: "center",
-                  background: "rgba(255,255,255,0.2)", color: "white",
-                  border: "2px solid rgba(255,255,255,0.5)",
-                  padding: "13px 24px", borderRadius: 50,
-                  fontWeight: 600, fontSize: 14, textDecoration: "none",
-                  transition: "background 0.2s",
-                }}
-              >
-                Записаться
-              </a>
+            <div className="card-iskra" style={{ background: "white" }}>
+              <div className="chip chip-terra" style={{ marginBottom: 24 }}>🌟 Основной курс</div>
+              <h3 className="heading-md" style={{ color: "var(--warm-dark)", marginBottom: 6 }}>Творческая студия</h3>
+              <p style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 20 }}>Театральная методика · 7–16 лет</p>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 44, fontWeight: 500, color: "var(--terracotta)", lineHeight: 1 }}>4 000 <span style={{ fontSize: 24 }}>₽</span></div>
+              <div style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 28 }}>в месяц · 8 занятий</div>
+              {["Раскрепощение и уверенность", "Работа с голосом и ритмом", "Импровизация и этюды", "Выступление на публике"].map(f => (
+                <div key={f} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10 }}>
+                  <Icon name="Check" size={14} style={{ color: "var(--terracotta)", flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: "var(--warm-mid)" }}>{f}</span>
+                </div>
+              ))}
+              <a href="#trial" className="btn-iskra" style={{ marginTop: 28, display: "block", textAlign: "center" }}>Записаться</a>
             </div>
 
-            {/* Finance */}
-            <div className="card-studio">
-              <div className="tag" style={{ marginBottom: 20 }}>💰 Финансовая грамотность</div>
-              <h3 className="font-display" style={{ fontSize: 24, fontWeight: 600, marginBottom: 8, color: "var(--warm-brown)" }}>
-                Дети и деньги
-              </h3>
-              <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 8 }}>8–12 лет</p>
-              <div style={{ fontSize: 36, fontWeight: 700, color: "var(--terracotta)", marginBottom: 4 }}>2 500 ₽</div>
-              <div style={{ fontSize: 13, color: "var(--muted-foreground)", marginBottom: 28 }}>4 занятия • мини-курс</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
-                {[
-                  "Как копить и ставить цели",
-                  "Умные покупки и траты",
-                  "Защита от мошенников",
-                  "Первые инвестиции",
-                ].map((f) => (
-                  <div key={f} style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <div
-                      style={{
-                        width: 20, height: 20, borderRadius: "50%",
-                        background: "var(--beige)", flexShrink: 0,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                      }}
-                    >
-                      <Icon name="Check" size={12} style={{ color: "var(--sage)" }} />
-                    </div>
-                    <span style={{ fontSize: 14, color: "var(--warm-brown)" }}>{f}</span>
-                  </div>
-                ))}
-              </div>
-              <a href="#trial" className="btn-primary" style={{ fontSize: 14, display: "block", textAlign: "center" }}>
-                Записаться
-              </a>
+            <div className="card-iskra" style={{ background: "white" }}>
+              <div className="chip chip-olive" style={{ marginBottom: 24 }}>💰 Финансовая грамотность</div>
+              <h3 className="heading-md" style={{ color: "var(--warm-dark)", marginBottom: 6 }}>Дети и деньги</h3>
+              <p style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 20 }}>8–16 лет</p>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 44, fontWeight: 500, color: "var(--olive)", lineHeight: 1 }}>2 500 <span style={{ fontSize: 24 }}>₽</span></div>
+              <div style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 28 }}>4 занятия · мини-курс</div>
+              {["Как копить и ставить цели", "Умные покупки и траты", "Защита от мошенников", "Первые инвестиции"].map(f => (
+                <div key={f} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10 }}>
+                  <Icon name="Check" size={14} style={{ color: "var(--olive)", flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: "var(--warm-mid)" }}>{f}</span>
+                </div>
+              ))}
+              <a href="#trial" className="btn-iskra-outline" style={{ marginTop: 28, display: "block", textAlign: "center" }}>Записаться</a>
             </div>
 
-            {/* AI */}
-            <div className="card-studio">
-              <div className="tag" style={{ marginBottom: 20 }}>🤖 Нейросети</div>
-              <h3 className="font-display" style={{ fontSize: 24, fontWeight: 600, marginBottom: 8, color: "var(--warm-brown)" }}>
-                Мастер-класс по ИИ
-              </h3>
-              <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 8 }}>8–12 лет</p>
-              <div style={{ fontSize: 36, fontWeight: 700, color: "var(--sage)", marginBottom: 4 }}>800 ₽</div>
-              <div style={{ fontSize: 13, color: "var(--muted-foreground)", marginBottom: 28 }}>1 занятие • 2 часа</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
-                {[
-                  "Создаём картинки с помощью ИИ",
-                  "Пишем тексты и истории",
-                  "Генерируем музыку и голос",
-                  "Придумываем идеи с нейросетью",
-                ].map((f) => (
-                  <div key={f} style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                    <div
-                      style={{
-                        width: 20, height: 20, borderRadius: "50%",
-                        background: "#DCFCE7", flexShrink: 0,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                      }}
-                    >
-                      <Icon name="Check" size={12} style={{ color: "var(--sage)" }} />
-                    </div>
-                    <span style={{ fontSize: 14, color: "var(--warm-brown)" }}>{f}</span>
-                  </div>
-                ))}
-              </div>
-              <a href="#trial" className="btn-outline" style={{ fontSize: 14, display: "block", textAlign: "center" }}>
-                Записаться
-              </a>
+            <div className="card-iskra" style={{ background: "white" }}>
+              <div className="chip chip-sand" style={{ marginBottom: 24 }}>🤖 Нейросети</div>
+              <h3 className="heading-md" style={{ color: "var(--warm-dark)", marginBottom: 6 }}>Мастер-класс по ИИ</h3>
+              <p style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 20 }}>8–16 лет</p>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 44, fontWeight: 500, color: "var(--sand)", lineHeight: 1 }}>800 <span style={{ fontSize: 24 }}>₽</span></div>
+              <div style={{ fontSize: 13, color: "var(--warm-mid)", marginBottom: 28 }}>1 занятие · 2 часа</div>
+              {["Создаём картинки с помощью ИИ", "Пишем тексты и истории", "Придумываем идеи с нейросетью", "Практика с реальными инструментами"].map(f => (
+                <div key={f} style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10 }}>
+                  <Icon name="Check" size={14} style={{ color: "var(--sand)", flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: "var(--warm-mid)" }}>{f}</span>
+                </div>
+              ))}
+              <a href="#trial" className="btn-iskra-outline" style={{ marginTop: 28, display: "block", textAlign: "center", color: "var(--warm-dark)", borderColor: "var(--sand)" }}>Записаться</a>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* SCHEDULE */}
-      <section id="schedule" style={{ padding: "80px 24px", backgroundColor: "var(--cream)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Расписание</div>
-            <h2 className="section-title">Когда занимаемся</h2>
+      {/* ────── SCHEDULE ────── */}
+      <section id="schedule" style={{ padding: "100px 28px", backgroundColor: "var(--milk)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip">Расписание</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)" }}>Когда занимаемся</h2>
           </div>
 
-          <div
-            style={{
-              background: "white",
-              borderRadius: 24,
-              overflow: "hidden",
-              boxShadow: "0 4px 24px rgba(61,43,31,0.07)",
-            }}
-          >
+          <div style={{ background: "white", borderRadius: 32, overflow: "hidden", boxShadow: "0 8px 40px rgba(43,43,40,0.07)" }}>
             <div style={{ overflowX: "auto" }}>
-              <table className="schedule-table" style={{ width: "100%", borderCollapse: "collapse", minWidth: 500 }}>
+              <table className="tbl" style={{ width: "100%", borderCollapse: "collapse", minWidth: 520 }}>
                 <thead>
                   <tr>
-                    <th>День</th>
-                    <th>Время</th>
-                    <th>Группа</th>
-                    <th>Программа</th>
+                    <th>День</th><th>Время</th><th>Группа</th><th>Программа</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    { day: "Понедельник", time: "16:00 – 17:30", group: "7–9 лет", program: "Творческая студия" },
-                    { day: "Среда", time: "16:00 – 17:30", group: "10–12 лет", program: "Творческая студия" },
-                    { day: "Суббота", time: "10:00 – 11:30", group: "6–8 лет", program: "Творческая студия" },
-                    { day: "Суббота", time: "12:00 – 13:30", group: "8–12 лет", program: "Дети и деньги" },
-                    { day: "По записи", time: "Индивидуально", group: "8–12 лет", program: "Мастер-класс по ИИ" },
-                  ].map((row, i) => (
+                    { day: "Понедельник", time: "16:00 – 17:30", group: "7–9 лет", prog: "Искорки · Творческая студия" },
+                    { day: "Среда", time: "16:00 – 17:30", group: "10–12 лет", prog: "Огонь · Творческая студия" },
+                    { day: "Четверг", time: "17:00 – 18:30", group: "13–16 лет", prog: "Звёзды · Творческая студия" },
+                    { day: "Суббота", time: "10:00 – 11:30", group: "8–16 лет", prog: "Дети и деньги" },
+                    { day: "По записи", time: "Индивидуально", group: "8–16 лет", prog: "Мастер-класс по ИИ" },
+                  ].map((r, i) => (
                     <tr key={i}>
-                      <td style={{ fontWeight: 500 }}>{row.day}</td>
-                      <td>{row.time}</td>
-                      <td>
-                        <span className="tag">{row.group}</span>
-                      </td>
-                      <td>{row.program}</td>
+                      <td style={{ fontWeight: 600 }}>{r.day}</td>
+                      <td>{r.time}</td>
+                      <td><span className="chip">{r.group}</span></td>
+                      <td style={{ color: "var(--warm-mid)" }}>{r.prog}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-
-          <p style={{ textAlign: "center", marginTop: 24, color: "var(--muted-foreground)", fontSize: 14 }}>
-            Расписание может меняться — актуальное уточняйте по телефону или в мессенджерах.
+          <p style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: "var(--warm-mid)" }}>
+            Расписание уточняйте по телефону или в мессенджерах — оно может меняться.
           </p>
         </div>
       </section>
 
-      {/* TRIAL FORM */}
-      <section id="trial" style={{ padding: "80px 24px", background: "white" }}>
+      {/* ────── TRIAL FORM ────── */}
+      <section id="trial" style={{ padding: "100px 28px", backgroundColor: "#EDE8DF" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Пробное занятие</div>
-            <h2 className="section-title">Запишитесь бесплатно</h2>
-            <p style={{ color: "var(--muted-foreground)", marginTop: 16, fontSize: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip">Пробное занятие</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)", marginBottom: 16 }}>Запишитесь бесплатно</h2>
+            <p style={{ fontSize: 16, color: "var(--warm-mid)", lineHeight: 1.7, fontWeight: 300 }}>
               Первое занятие — бесплатно и ни к чему не обязывает. Ребёнок попробует, и вы вместе решите, продолжать ли.
             </p>
           </div>
 
-          {submitted ? (
-            <div
-              style={{
-                background: "linear-gradient(135deg, var(--sage) 0%, var(--sage-light) 100%)",
-                borderRadius: 24,
-                padding: "48px 40px",
-                textAlign: "center",
-                color: "white",
-              }}
-            >
-              <div style={{ fontSize: 64, marginBottom: 20 }}>🎉</div>
-              <h3 className="font-display" style={{ fontSize: 28, fontWeight: 600, marginBottom: 12 }}>
-                Заявка принята!
-              </h3>
-              <p style={{ opacity: 0.9, fontSize: 16 }}>
+          {sent ? (
+            <div style={{ background: "var(--olive)", borderRadius: 32, padding: "56px 40px", textAlign: "center", color: "white" }}>
+              <div style={{ fontSize: 56, marginBottom: 20 }}>✦</div>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 36, fontWeight: 500, marginBottom: 14 }}>Заявка принята!</h3>
+              <p style={{ opacity: 0.85, fontSize: 16, lineHeight: 1.6 }}>
                 Мы свяжемся с вами в течение часа для подтверждения времени занятия.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {[
-                  { key: "parentName", label: "Имя родителя", placeholder: "Ваше имя", type: "text" },
-                  { key: "childName", label: "Имя ребёнка", placeholder: "Имя вашего ребёнка", type: "text" },
-                  { key: "age", label: "Возраст ребёнка", placeholder: "Например: 8 лет", type: "text" },
-                  { key: "phone", label: "Телефон", placeholder: "+7 (___) ___-__-__", type: "tel" },
-                  { key: "email", label: "Email", placeholder: "example@mail.ru", type: "email" },
-                ].map((field) => (
-                  <div key={field.key}>
-                    <label
-                      style={{
-                        display: "block",
-                        marginBottom: 6,
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: "var(--warm-brown)",
-                      }}
-                    >
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      required
-                      value={formData[field.key as keyof typeof formData]}
-                      onChange={(e) =>
-                        setFormData({ ...formData, [field.key]: e.target.value })
-                      }
-                      style={{
-                        width: "100%",
-                        padding: "14px 18px",
-                        borderRadius: 12,
-                        border: "2px solid var(--beige-dark)",
-                        fontSize: 15,
-                        color: "var(--warm-brown)",
-                        backgroundColor: "var(--cream)",
-                        outline: "none",
-                        transition: "border-color 0.2s",
-                        boxSizing: "border-box",
-                        fontFamily: "'Golos Text', sans-serif",
-                      }}
-                      onFocus={(e) => ((e.target as HTMLInputElement).style.borderColor = "var(--terracotta)")}
-                      onBlur={(e) => ((e.target as HTMLInputElement).style.borderColor = "var(--beige-dark)")}
-                    />
-                  </div>
-                ))}
-
-                <button
-                  type="submit"
-                  className="btn-primary"
-                  style={{ width: "100%", marginTop: 8, fontSize: 17, padding: "16px", textAlign: "center" }}
-                >
-                  Записаться на бесплатное занятие
-                </button>
-                <p style={{ textAlign: "center", fontSize: 13, color: "var(--muted-foreground)" }}>
-                  Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
-                </p>
-              </div>
-            </form>
+            <div style={{ background: "white", borderRadius: 32, padding: "48px 40px", boxShadow: "0 8px 40px rgba(43,43,40,0.07)" }}>
+              <form onSubmit={e => { e.preventDefault(); setSent(true); }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                  {[
+                    { key: "parentName", label: "Имя родителя", placeholder: "Ваше имя", type: "text" },
+                    { key: "childName", label: "Имя ребёнка", placeholder: "Имя вашего ребёнка", type: "text" },
+                    { key: "age", label: "Возраст ребёнка", placeholder: "Например: 9 лет", type: "text" },
+                    { key: "phone", label: "Телефон", placeholder: "+7 (___) ___-__-__", type: "tel" },
+                    { key: "email", label: "Email", placeholder: "example@mail.ru", type: "email" },
+                  ].map(f => (
+                    <div key={f.key}>
+                      <label style={{ display: "block", marginBottom: 7, fontSize: 13, fontWeight: 600, color: "var(--warm-mid)", letterSpacing: "0.02em" }}>
+                        {f.label}
+                      </label>
+                      <input
+                        className="iskra-input"
+                        type={f.type}
+                        placeholder={f.placeholder}
+                        required
+                        value={form[f.key as keyof typeof form]}
+                        onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                      />
+                    </div>
+                  ))}
+                  <button type="submit" className="btn-iskra" style={{ width: "100%", marginTop: 8, fontSize: 16, padding: "18px" }}>
+                    Записаться на бесплатное занятие
+                  </button>
+                  <p style={{ textAlign: "center", fontSize: 12, color: "var(--sage-dark)" }}>
+                    Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+                  </p>
+                </div>
+              </form>
+            </div>
           )}
         </div>
       </section>
 
-      {/* CONTACTS */}
-      <section id="contacts" style={{ padding: "80px 24px", backgroundColor: "var(--beige)" }}>
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="tag" style={{ marginBottom: 16 }}>Контакты</div>
-            <h2 className="section-title">Как нас найти</h2>
+      {/* ────── CONTACTS ────── */}
+      <section id="contacts" style={{ padding: "100px 28px", backgroundColor: "var(--milk)" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <span style={{ color: "var(--sand)", fontSize: 18 }}>✦</span>
+              <span className="chip">Контакты</span>
+            </div>
+            <h2 className="heading-lg" style={{ color: "var(--warm-dark)" }}>Как нас найти</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 40, alignItems: "start" }}>
-            <div>
-              <div className="card-studio" style={{ marginBottom: 20 }}>
-                <h3 style={{ fontWeight: 600, fontSize: 18, marginBottom: 24, color: "var(--warm-brown)" }}>
-                  Студия творческого развития
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: 32, alignItems: "start" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+              <div className="card-iskra">
+                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 500, marginBottom: 24, color: "var(--warm-dark)" }}>
+                  Студия «Искра»
                 </h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                  {[
-                    { icon: "MapPin", text: "пгт Бачатский, Кемеровская область" },
-                    { icon: "Phone", text: "+7 (XXX) XXX-XX-XX" },
-                    { icon: "Mail", text: "studio@bachatsky.ru" },
-                    { icon: "Clock", text: "Пн–Сб: 10:00 – 19:00" },
-                  ].map((item) => (
-                    <div key={item.icon} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                      <div
-                        style={{
-                          width: 40, height: 40, borderRadius: 12,
-                          background: "var(--beige)", flexShrink: 0,
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}
-                      >
-                        <Icon name={item.icon} size={18} style={{ color: "var(--terracotta)" }} />
-                      </div>
-                      <div style={{ paddingTop: 8, fontSize: 15, color: "var(--warm-brown)" }}>{item.text}</div>
+                {[
+                  { icon: "MapPin", text: "пгт Бачатский, Кемеровская область" },
+                  { icon: "Phone", text: "+7 (XXX) XXX-XX-XX" },
+                  { icon: "Mail", text: "iskra@studio.ru" },
+                  { icon: "Clock", text: "Пн–Сб: 10:00 – 19:00" },
+                ].map(c => (
+                  <div key={c.icon} style={{ display: "flex", gap: 14, alignItems: "flex-start", marginBottom: 16 }}>
+                    <div style={{ width: 38, height: 38, borderRadius: 12, background: "#F6F1EB", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon name={c.icon} size={16} style={{ color: "var(--terracotta)" }} />
                     </div>
-                  ))}
-                </div>
+                    <div style={{ paddingTop: 9, fontSize: 14, color: "var(--warm-mid)" }}>{c.text}</div>
+                  </div>
+                ))}
               </div>
 
-              <div className="card-studio">
-                <h4 style={{ fontWeight: 600, marginBottom: 16, color: "var(--warm-brown)" }}>Мы в социальных сетях</h4>
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  {[
-                    { label: "ВКонтакте", emoji: "ВК", href: "#", bg: "#0077FF", isText: true },
-                    { label: "Instagram", emoji: "📷", href: "#", bg: "#E1306C", isText: false },
-                    { label: "WhatsApp", emoji: "💬", href: "#", bg: "#25D366", isText: false },
-                    { label: "Telegram", emoji: "✈️", href: "#", bg: "#0088CC", isText: false },
-                    { label: "Одноклассники", emoji: "ОК", href: "#", bg: "#EE8208", isText: true },
-                    { label: "Маx", emoji: "МАХ", href: "#", bg: "#1A1A2E", isText: true },
-                  ].map((s) => (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      title={s.label}
-                      style={{
-                        width: 48, height: 48, borderRadius: 14,
-                        background: s.bg, display: "flex",
-                        alignItems: "center", justifyContent: "center",
-                        fontSize: s.isText ? 11 : 22, textDecoration: "none",
-                        transition: "transform 0.2s, opacity 0.2s",
-                        color: "white", fontWeight: 800, letterSpacing: "0.02em",
-                      }}
-                      onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.1)")}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
-                    >
-                      {s.emoji}
-                    </a>
+              <div className="card-iskra">
+                <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 500, marginBottom: 20, color: "var(--warm-dark)" }}>
+                  Мы в социальных сетях
+                </h4>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  {SOCIAL.map(s => (
+                    <a key={s.label} href={s.href} title={s.label}
+                      style={{ width: 48, height: 48, borderRadius: 14, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white", textDecoration: "none", letterSpacing: "0.02em", transition: "transform 0.2s, box-shadow 0.2s" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1.1)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 20px rgba(0,0,0,0.2)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
+                    >{s.text}</a>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div
-              style={{
-                borderRadius: 24,
-                overflow: "hidden",
-                boxShadow: "0 4px 24px rgba(61,43,31,0.1)",
-                height: 420,
-              }}
-            >
+            <div style={{ borderRadius: 32, overflow: "hidden", boxShadow: "0 8px 40px rgba(43,43,40,0.1)", height: 460 }}>
               <iframe
                 src="https://yandex.ru/map-widget/v1/?ll=87.07,54.30&z=13&l=map&text=%D0%BF%D0%B3%D1%82%20%D0%91%D0%B0%D1%87%D0%B0%D1%82%D1%81%D0%BA%D0%B8%D0%B9"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                title="Яндекс.Карта — Бачатский"
-                style={{ border: 0 }}
-                allowFullScreen
+                width="100%" height="100%" frameBorder="0" title="Яндекс.Карта — Бачатский"
+                style={{ border: 0 }} allowFullScreen
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer
-        style={{
-          background: "var(--warm-brown)",
-          color: "rgba(255,255,255,0.7)",
-          padding: "40px 24px",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div
-            className="font-display"
-            style={{ fontSize: 24, color: "var(--terracotta-light)", marginBottom: 8, fontStyle: "italic" }}
-          >
-            Студия творческого развития
-          </div>
-          <div style={{ fontSize: 13, marginBottom: 20 }}>пгт Бачатский, Кемеровская область</div>
-          <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", fontSize: 13 }}>
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none", transition: "color 0.2s" }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "white")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)")}
-              >
-                {l.label}
-              </a>
+      {/* ────── FOOTER ────── */}
+      <footer style={{ background: "var(--olive-dark)", padding: "48px 28px", color: "rgba(255,255,255,0.65)", textAlign: "center" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: "var(--sand)", marginBottom: 6, fontStyle: "italic" }}>Искра</div>
+          <div style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 28, opacity: 0.5 }}>студия творческого развития</div>
+          <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", fontSize: 13, marginBottom: 28 }}>
+            {nav.map(l => (
+              <a key={l.href} href={l.href}
+                style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "white"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.45)"}
+              >{l.label}</a>
             ))}
           </div>
-          <div style={{ marginTop: 24, fontSize: 12, opacity: 0.4 }}>
-            © 2024 Студия творческого развития
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", marginBottom: 28 }}>
+            {SOCIAL.map(s => (
+              <a key={s.label} href={s.href} title={s.label}
+                style={{ width: 36, height: 36, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, color: "white", textDecoration: "none", opacity: 0.85, transition: "opacity 0.2s, transform 0.2s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = "1"; (e.currentTarget as HTMLElement).style.transform = "scale(1.1)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = "0.85"; (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
+              >{s.text}</a>
+            ))}
           </div>
+          <div style={{ fontSize: 12, opacity: 0.3 }}>© 2024 Студия «Искра» · пгт Бачатский</div>
         </div>
       </footer>
 
-      {/* FLOATING MESSENGER BUTTONS */}
-      <div className="floating-btn">
-        <a
-          href="https://t.me/your_telegram"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="float-icon"
-          title="Telegram"
-          style={{ background: "#0088CC" }}
-        >
-          ✈️
-        </a>
-        <a
-          href="https://wa.me/7XXXXXXXXXX"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="float-icon"
-          title="WhatsApp"
-          style={{ background: "#25D366" }}
-        >
-          💬
-        </a>
+      {/* ────── FLOATING MESSENGERS ────── */}
+      <div className="floating-wrap">
+        <a href="https://t.me/your_telegram" target="_blank" rel="noopener noreferrer" className="float-messenger" title="Telegram" style={{ background: "#0088CC" }}>✈️</a>
+        <a href="https://wa.me/7XXXXXXXXXX" target="_blank" rel="noopener noreferrer" className="float-messenger" title="WhatsApp" style={{ background: "#25D366" }}>💬</a>
       </div>
 
     </div>
