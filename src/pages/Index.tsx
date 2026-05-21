@@ -14,6 +14,7 @@ export default function Index() {
   const [sent, setSent] = useState(false);
 
   const nav = [
+    { href: "#method", label: "Методика" },
     { href: "#schedule", label: "Расписание" },
     { href: "#contacts", label: "Контакты" },
   ];
@@ -31,13 +32,11 @@ export default function Index() {
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 28px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
 
           {/* Logo */}
-          <a href="#" style={{ textDecoration: "none", display: "flex", flexDirection: "column", lineHeight: 1 }}>
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 500, color: "var(--terracotta)", letterSpacing: "0.04em", fontStyle: "italic" }}>
-              Искра
+          <a href="#" style={{ textDecoration: "none", display: "inline-flex", alignItems: "flex-start", gap: 2 }}>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 700, color: "var(--terracotta)", letterSpacing: "0.08em", textTransform: "uppercase", fontStyle: "normal", lineHeight: 1 }}>
+              ИСКРА
             </span>
-            <span style={{ fontSize: 10, color: "var(--warm-mid)", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600 }}>
-              студия развития
-            </span>
+            <span style={{ color: "var(--sand)", fontSize: 16, lineHeight: 1, marginTop: -2 }}>✦</span>
           </a>
 
           {/* Desktop nav */}
@@ -563,7 +562,10 @@ export default function Index() {
       {/* ────── FOOTER ────── */}
       <footer style={{ background: "var(--olive-dark)", padding: "48px 28px", color: "rgba(255,255,255,0.65)", textAlign: "center" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, color: "var(--sand)", marginBottom: 6, fontStyle: "italic" }}>Искра</div>
+          <div style={{ display: "inline-flex", alignItems: "flex-start", gap: 3, marginBottom: 6, justifyContent: "center" }}>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 32, fontWeight: 700, color: "var(--sand)", letterSpacing: "0.08em", textTransform: "uppercase", lineHeight: 1 }}>ИСКРА</span>
+            <span style={{ color: "var(--sand)", fontSize: 16, lineHeight: 1, marginTop: -2, opacity: 0.8 }}>✦</span>
+          </div>
           <div style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 28, opacity: 0.5 }}>студия творческого развития</div>
           <div style={{ display: "flex", gap: 24, justifyContent: "center", flexWrap: "wrap", fontSize: 13, marginBottom: 28 }}>
             {nav.map(l => (
