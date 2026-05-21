@@ -5,10 +5,6 @@ const HERO_IMG = "https://cdn.poehali.dev/projects/b88efe89-80c5-4a3c-8226-e4fd9
 
 const SOCIAL = [
   { label: "ВКонтакте", text: "ВК", href: "#", bg: "#0077FF" },
-  { label: "Instagram", text: "IG", href: "#", bg: "#E1306C" },
-  { label: "Telegram", text: "TG", href: "#", bg: "#0088CC" },
-  { label: "WhatsApp", text: "WA", href: "#", bg: "#25D366" },
-  { label: "Одноклассники", text: "ОК", href: "#", bg: "#EE8208" },
   { label: "МАХ", text: "МАХ", href: "#", bg: "#1A1A2E" },
 ];
 
@@ -18,10 +14,6 @@ export default function Index() {
   const [sent, setSent] = useState(false);
 
   const nav = [
-    { href: "#about", label: "О студии" },
-    { href: "#method", label: "Методика" },
-    { href: "#groups", label: "Группы" },
-    { href: "#programs", label: "Программы" },
     { href: "#schedule", label: "Расписание" },
     { href: "#contacts", label: "Контакты" },
   ];
@@ -54,19 +46,8 @@ export default function Index() {
           </nav>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            {/* Socials in header */}
-            <div className="hidden md:flex" style={{ display: "flex", gap: 6 }}>
-              {SOCIAL.slice(0, 4).map(s => (
-                <a key={s.label} href={s.href} title={s.label}
-                  style={{ width: 32, height: 32, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, color: "white", textDecoration: "none", letterSpacing: "0.02em", transition: "transform 0.2s" }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = "scale(1.15)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = "scale(1)"}
-                >{s.text}</a>
-              ))}
-            </div>
-
             <a href="#trial" className="btn-iskra hidden md:inline-block" style={{ padding: "10px 24px", fontSize: 13 }}>
-              Записаться
+              Записаться на пробное занятие
             </a>
 
             <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden"
@@ -131,8 +112,8 @@ export default function Index() {
               <a href="#trial" className="btn-iskra" style={{ fontSize: 16, padding: "18px 44px" }}>
                 Записаться на пробное
               </a>
-              <a href="#about" className="btn-iskra-ghost">
-                О студии
+              <a href="#method" className="btn-iskra-ghost">
+                Как мы работаем
               </a>
             </div>
 
@@ -608,8 +589,10 @@ export default function Index() {
 
       {/* ────── FLOATING MESSENGERS ────── */}
       <div className="floating-wrap">
-        <a href="https://t.me/your_telegram" target="_blank" rel="noopener noreferrer" className="float-messenger" title="Telegram" style={{ background: "#0088CC" }}>✈️</a>
-        <a href="https://wa.me/7XXXXXXXXXX" target="_blank" rel="noopener noreferrer" className="float-messenger" title="WhatsApp" style={{ background: "#25D366" }}>💬</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" className="float-messenger" title="Написать в МАХ"
+          style={{ background: "#1A1A2E", fontSize: 13, fontWeight: 800, color: "white" }}>МАХ</a>
+        <a href="#" target="_blank" rel="noopener noreferrer" className="float-messenger" title="Написать ВКонтакте"
+          style={{ background: "#0077FF", fontSize: 13, fontWeight: 800, color: "white" }}>ВК</a>
       </div>
 
     </div>
