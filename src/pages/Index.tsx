@@ -78,31 +78,31 @@ export default function Index() {
           </nav>
 
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div className="hidden md:flex" style={{ display: "flex", gap: 10 }}>
-              <a
-                href="#"
-                title="ВКонтакте"
-                style={{
-                  width: 36, height: 36, borderRadius: "50%",
-                  background: "var(--beige)", display: "flex",
-                  alignItems: "center", justifyContent: "center",
-                  fontSize: 16, textDecoration: "none",
-                }}
-              >
-                🅱
-              </a>
-              <a
-                href="#"
-                title="Instagram"
-                style={{
-                  width: 36, height: 36, borderRadius: "50%",
-                  background: "var(--beige)", display: "flex",
-                  alignItems: "center", justifyContent: "center",
-                  fontSize: 16, textDecoration: "none",
-                }}
-              >
-                📷
-              </a>
+            <div className="hidden md:flex" style={{ display: "flex", gap: 8 }}>
+              {[
+                { label: "ВКонтакте", content: "ВК", isText: true, bg: "#0077FF" },
+                { label: "Instagram", content: "📷", isText: false, bg: "#E1306C" },
+                { label: "Маx", content: "МАХ", isText: true, bg: "#1A1A2E" },
+                { label: "Одноклассники", content: "ОК", isText: true, bg: "#EE8208" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href="#"
+                  title={s.label}
+                  style={{
+                    width: 34, height: 34, borderRadius: "50%",
+                    background: s.bg, display: "flex",
+                    alignItems: "center", justifyContent: "center",
+                    fontSize: s.isText ? 10 : 15, textDecoration: "none",
+                    color: "white", fontWeight: 800, letterSpacing: "0.01em",
+                    transition: "transform 0.2s",
+                  }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.12)")}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
+                >
+                  {s.content}
+                </a>
+              ))}
             </div>
 
             <a href="#trial" className="btn-primary hidden md:inline-block" style={{ padding: "10px 24px", fontSize: 14 }}>
@@ -234,7 +234,7 @@ export default function Index() {
 
             <div style={{ display: "flex", gap: 40, marginTop: 56, flexWrap: "wrap" }}>
               {[
-                { value: "6–12", label: "лет возраст" },
+                { value: "7–16", label: "лет возраст" },
                 { value: "8", label: "занятий в месяц" },
                 { value: "0 ₽", label: "первое занятие" },
               ].map((f) => (
@@ -383,16 +383,133 @@ export default function Index() {
                   boxShadow: "0 8px 32px rgba(61,43,31,0.15)",
                 }}
               >
-                <div className="font-display" style={{ fontSize: 28, fontWeight: 600, color: "var(--terracotta)" }}>5+</div>
-                <div style={{ fontSize: 13, color: "var(--warm-brown)", opacity: 0.7 }}>лет авторская программа</div>
+                <div className="font-display" style={{ fontSize: 22, fontWeight: 600, color: "var(--terracotta)" }}>Авторская</div>
+                <div style={{ fontSize: 13, color: "var(--warm-brown)", opacity: 0.7 }}>методика студии</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* AGE GROUPS */}
+      <section style={{ padding: "80px 24px", background: "white" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div className="tag" style={{ marginBottom: 16 }}>Возрастные группы</div>
+            <h2 className="section-title">Свой подход для каждого возраста</h2>
+            <p style={{ color: "var(--muted-foreground)", marginTop: 16, maxWidth: 580, margin: "16px auto 0" }}>
+              Студия работает с детьми от 7 до 16 лет — три группы с разными программами и темпом
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
+            {[
+              {
+                age: "7–10 лет",
+                emoji: "🌱",
+                title: "Искорки",
+                subtitle: "Младшая группа",
+                desc: "Игровой формат: упражнения на раскрепощение, ритм, фантазию. Учимся выражать эмоции и не бояться быть на виду. Всё через сказку, движение и смех.",
+                skills: ["Снятие зажимов через игру", "Первые выступления", "Развитие воображения"],
+                bg: "#FEF3C7",
+                accent: "#D97706",
+                border: "#FCD34D",
+              },
+              {
+                age: "11–13 лет",
+                emoji: "🔥",
+                title: "Огонь",
+                subtitle: "Средняя группа",
+                accent: "white",
+                desc: "Работа с голосом, дикцией и сценическим образом. Этюды, импровизации, командные постановки. Подростки учатся говорить уверенно и слышать других.",
+                skills: ["Голос и дикция", "Сценический образ", "Командные этюды"],
+                bg: "linear-gradient(145deg, var(--terracotta) 0%, var(--terracotta-dark) 100%)",
+                accentColor: "rgba(255,255,255,0.85)",
+                isLight: false,
+              },
+              {
+                age: "14–16 лет",
+                emoji: "⭐",
+                title: "Звёзды",
+                subtitle: "Старшая группа",
+                desc: "Серьёзная работа: публичные выступления, дебаты, управление аудиторией. Навыки, которые помогут на собеседовании, в университете и в жизни.",
+                skills: ["Публичные выступления", "Управление аудиторией", "Лидерство и харизма"],
+                bg: "#F0FDF4",
+                accent: "#15803D",
+                border: "#86EFAC",
+              },
+            ].map((g) => (
+              <div
+                key={g.age}
+                className="card-studio"
+                style={{
+                  background: g.bg,
+                  color: g.isLight === false ? "white" : "var(--warm-brown)",
+                  position: "relative",
+                  overflow: "hidden",
+                  border: g.border ? `2px solid ${g.border}` : undefined,
+                }}
+              >
+                {g.isLight === false && (
+                  <div style={{
+                    position: "absolute", top: -30, right: -30,
+                    width: 140, height: 140, borderRadius: "50%",
+                    background: "rgba(255,255,255,0.07)",
+                  }} />
+                )}
+                <div style={{ fontSize: 40, marginBottom: 16 }}>{g.emoji}</div>
+                <div
+                  className="tag"
+                  style={{
+                    background: g.isLight === false ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.07)",
+                    color: g.isLight === false ? "white" : g.accent,
+                    marginBottom: 12,
+                  }}
+                >
+                  {g.age}
+                </div>
+                <h3
+                  className="font-display"
+                  style={{ fontSize: 26, fontWeight: 600, marginBottom: 4 }}
+                >
+                  {g.title}
+                </h3>
+                <div
+                  style={{
+                    fontSize: 13, marginBottom: 16,
+                    opacity: g.isLight === false ? 0.7 : 0.55,
+                    fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em",
+                  }}
+                >
+                  {g.subtitle}
+                </div>
+                <p style={{ fontSize: 14, lineHeight: 1.65, marginBottom: 24, opacity: g.isLight === false ? 0.9 : 0.8 }}>
+                  {g.desc}
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {g.skills.map((s) => (
+                    <div key={s} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <div
+                        style={{
+                          width: 18, height: 18, borderRadius: "50%", flexShrink: 0,
+                          background: g.isLight === false ? "rgba(255,255,255,0.25)" : g.accent,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                        }}
+                      >
+                        <Icon name="Check" size={11} style={{ color: g.isLight === false ? "white" : "white" }} />
+                      </div>
+                      <span style={{ fontSize: 13, opacity: g.isLight === false ? 0.9 : 0.8 }}>{s}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PROGRAMS */}
-      <section id="programs" style={{ padding: "80px 24px", background: "white" }}>
+      <section id="programs" style={{ padding: "80px 24px", background: "var(--cream)" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
             <div className="tag" style={{ marginBottom: 16 }}>Программы и цены</div>
@@ -718,10 +835,12 @@ export default function Index() {
                 <h4 style={{ fontWeight: 600, marginBottom: 16, color: "var(--warm-brown)" }}>Мы в социальных сетях</h4>
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                   {[
-                    { label: "ВКонтакте", emoji: "🅱", href: "#", bg: "#0077FF" },
-                    { label: "Instagram", emoji: "📷", href: "#", bg: "#E1306C" },
-                    { label: "WhatsApp", emoji: "💬", href: "#", bg: "#25D366" },
-                    { label: "Telegram", emoji: "✈️", href: "#", bg: "#0088CC" },
+                    { label: "ВКонтакте", emoji: "ВК", href: "#", bg: "#0077FF", isText: true },
+                    { label: "Instagram", emoji: "📷", href: "#", bg: "#E1306C", isText: false },
+                    { label: "WhatsApp", emoji: "💬", href: "#", bg: "#25D366", isText: false },
+                    { label: "Telegram", emoji: "✈️", href: "#", bg: "#0088CC", isText: false },
+                    { label: "Одноклассники", emoji: "ОК", href: "#", bg: "#EE8208", isText: true },
+                    { label: "Маx", emoji: "МАХ", href: "#", bg: "#1A1A2E", isText: true },
                   ].map((s) => (
                     <a
                       key={s.label}
@@ -731,8 +850,9 @@ export default function Index() {
                         width: 48, height: 48, borderRadius: 14,
                         background: s.bg, display: "flex",
                         alignItems: "center", justifyContent: "center",
-                        fontSize: 22, textDecoration: "none",
+                        fontSize: s.isText ? 11 : 22, textDecoration: "none",
                         transition: "transform 0.2s, opacity 0.2s",
+                        color: "white", fontWeight: 800, letterSpacing: "0.02em",
                       }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.1)")}
                       onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
